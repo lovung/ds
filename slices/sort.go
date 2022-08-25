@@ -3,7 +3,7 @@ package slices
 import (
 	"sort"
 
-	"github.com/lovung/goutil/constraints"
+	"golang.org/x/exp/constraints"
 )
 
 // orderedSlice is an internal type that implements sort.Interface.
@@ -40,9 +40,10 @@ func (s sliceFn[T]) Swap(i, j int)      { s.s[i], s.s[j] = s.s[j], s.s[i] }
 
 // SliceFn sorts the slice s according to the function cmp.
 // Usage:
-// 		var s []*Person
-// 		// ...
-// 		sort.SliceFn(s, func(p1, p2 *Person) bool { return p1.Name < p2.Name })
+//
+//	var s []*Person
+//	// ...
+//	sort.SliceFn(s, func(p1, p2 *Person) bool { return p1.Name < p2.Name })
 func SliceFn[T any](s []T, cmp func(T, T) bool) {
 	sort.Sort(sliceFn[T]{s, cmp})
 }

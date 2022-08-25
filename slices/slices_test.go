@@ -1,24 +1,78 @@
 package slices
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestConvertInnerTypeTo(t *testing.T) {
-	r := ConvertInnerTypeTo[int]([]any{1, 2, 3, 4})
-	if fmt.Sprintf("%T", r) != "[]int" {
-		t.Errorf("ConvertInnerTypeTo[int] failed")
+func TestReverse(t *testing.T) {
+	tests := []struct {
+		in  []any
+		out []any
+	}{
+		{
+			in:  []any{1, 2, 3},
+			out: []any{3, 2, 1},
+		},
+		{
+			in:  []any{"a", "b", "c"},
+			out: []any{"c", "b", "a"},
+		},
 	}
-	r2 := ConvertInnerTypeTo[string]([]any{1, 2, 3, 4})
-	if fmt.Sprintf("%T", r2) != "[]string" {
-		t.Errorf("ConvertInnerTypeTo[string] failed")
+	for _, tt := range tests {
+		t.Run("", func(t *testing.T) {
+			Reverse(tt.in)
+			assert.Equal(t, tt.out, tt.in)
+		})
 	}
-	fmt.Println(reflect.ValueOf(r2))
-	t.Error("")
-	r3 := ConvertInnerTypeTo[string]([]any{"a", "b", "c", "d"})
-	if fmt.Sprintf("%T", r3) != "[]string" {
-		t.Errorf("ConvertInnerTypeTo[string] failed")
+}
+
+func TestMaxValueAndIndex(t *testing.T) {
+	type args struct {
+		s []int
+	}
+	tests := []struct {
+		name  string
+		args  args
+		want  int
+		want1 int
+	}{
+		{
+			name: "test1",
+			args: args{
+				s: []int{1, 2, 3, 4, 5},
+			},
+			want:  5,
+			want1: 4,
+		},
+		{
+			name: "test2",
+			args: args{
+				s: []int{10, 11, 100, -1, 5, 6},
+			},
+			want:  100,
+			want1: 2,
+		},
+		{
+			name: "empty",
+			args: args{
+				s: []int{},
+			},
+			want:  0,
+			want1: -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1 := MaxValueAndIndex(tt.args.s)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("MaxValueAndIndex() got = %v, want %v", got, tt.want)
+			}
+			if got1 != tt.want1 {
+				t.Errorf("MaxValueAndIndex() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
 	}
 }
