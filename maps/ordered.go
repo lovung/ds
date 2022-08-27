@@ -1,6 +1,6 @@
 package maps
 
-import "github.com/lovung/goutil/chans"
+import "github.com/lovung/ds/chans"
 
 // OrderedMap is an ordered map.
 type OrderedMap[K, V any] struct {

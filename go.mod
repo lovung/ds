@@ -1,4 +1,4 @@
-module github.com/lovung/goutil
+module github.com/lovung/ds
 
 go 1.19
 

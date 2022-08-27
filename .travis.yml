@@ -1,0 +1,24 @@
+language: go
+install: true
+cache:
+  directories:
+    - $HOME/.cache/go-build
+    - $GOPATH/pkg/mod
+go:
+  - 1.19.x
+script:
+  - go mod download
+  - go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+env:
+  - GOOS=windows GOARCH=amd64 GO_FOR_RELEASE=1.19
+  - GOOS=windows GOARCH=386 GO_FOR_RELEASE=1.19
+  - GOOS=linux GOARCH=amd64 GO_FOR_RELEASE=1.19
+  - GOOS=linux GOARCH=386 GO_FOR_RELEASE=1.19
+  - GOOS=linux GOARCH=arm GO_FOR_RELEASE=1.19
+  - GOOS=darwin GOARCH=amd64 GO_FOR_RELEASE=1.19
+  - GOOS=darwin GOARCH=386 GO_FOR_RELEASE=1.19
+matrix:
+  fast_finish: true
