@@ -1,17 +1,29 @@
 package lists
 
-import (
-	"container/list"
-)
+type ListNode[T any] struct {
+	Val  T
+	Next *ListNode[T]
+}
 
-// NewListFromValues return the linked list with the given array of values
-func NewListFromValues[T any](values []T) *list.List {
+func NewListNode[T any](value T) ListNode[T] {
+	return ListNode[T]{
+		Val: value,
+	}
+}
+
+func NewLinkedListFromValues[T any](values []T) *ListNode[T] {
 	if len(values) == 0 {
 		return nil
 	}
-	l := list.New()
-	for i := range values {
-		l.PushFront(values[i])
+	head := &ListNode[T]{
+		Val: values[0],
 	}
-	return l
+	current := head
+	for i := 1; i < len(values); i++ {
+		current.Next = &ListNode[T]{
+			Val: values[i],
+		}
+		current = current.Next
+	}
+	return head
 }
