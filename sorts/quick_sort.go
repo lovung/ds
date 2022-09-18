@@ -22,7 +22,7 @@ func partition[T constraints.Ordered](slice []T, lo, hi int) int {
 	pivot := slice[hi]
 	i := lo - 1
 	for j := lo; j <= hi-1; j++ {
-		if slice[j] <= pivot {
+		if slice[j] < pivot {
 			i++
 			slice[i], slice[j] = slice[j], slice[i]
 		}
