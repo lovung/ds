@@ -61,7 +61,7 @@ func NewSegmentTreeWithMap[T any](
 	size int, combineRangeFunc func(T, T) T,
 ) SegmentTree[T] {
 	return &segmentTreeWithMap[T]{
-		data:             make(map[int]T, size*2),
+		data:             make(map[int]T),
 		size:             size,
 		combineRangeFunc: combineRangeFunc,
 	}
