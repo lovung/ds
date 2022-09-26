@@ -20,4 +20,12 @@ func TestUnionFind(t *testing.T) {
 
 	uf.Union(9, 0) // lower rank case
 	assert.Equal(t, 0, uf.Find(9))
+
+	uf.Union(6, 5)
+	uf.Union(5, 7)
+	assert.Equal(t, 6, uf.Find(7))
+
+	uf.Union(6, 2)
+	assert.Equal(t, 6, uf.Find(1))
+	assert.Equal(t, 6, uf.Find(4))
 }

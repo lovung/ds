@@ -3,11 +3,13 @@ package trees
 type SegmentTree[T any] interface {
 	Query(lo, hi int) T
 	Update(pos int, val T)
+	SetInitQueryValue(initQueryValue T)
 }
 
 type segmentTreeWithArray[T any] struct {
 	data             []T
 	size             int
+	initQueryValue   T
 	combineRangeFunc func(T, T) T
 }
 
@@ -21,11 +23,15 @@ func NewSegmentTreeWithArray[T any](
 	}
 }
 
+func (st *segmentTreeWithArray[T]) SetInitQueryValue(initQueryValue T) {
+	st.initQueryValue = initQueryValue
+}
+
 func (st *segmentTreeWithArray[T]) Query(lo, hi int) T {
 	lo += st.size
 	hi += st.size
 
-	var res T
+	res := st.initQueryValue
 	for lo < hi {
 		if lo&1 != 0 {
 			res = st.combineRangeFunc(res, st.data[lo])
@@ -54,6 +60,7 @@ func (st *segmentTreeWithArray[T]) Update(pos int, val T) {
 type segmentTreeWithMap[T any] struct {
 	data             map[int]T
 	size             int
+	initQueryValue   T
 	combineRangeFunc func(T, T) T
 }
 
@@ -67,11 +74,15 @@ func NewSegmentTreeWithMap[T any](
 	}
 }
 
+func (st *segmentTreeWithMap[T]) SetInitQueryValue(initQueryValue T) {
+	st.initQueryValue = initQueryValue
+}
+
 func (st *segmentTreeWithMap[T]) Query(lo, hi int) T {
 	lo += st.size
 	hi += st.size
 
-	var res T
+	res := st.initQueryValue
 	for lo < hi {
 		if lo&1 != 0 {
 			res = st.combineRangeFunc(res, st.data[lo])
