@@ -56,7 +56,7 @@ Go Data Structure packages with Generics supported
     - [ ] AVL tree
     - [ ] B-Tree
     - [ ] B+Tree
-    - [ ] Trie
+    - [x] Trie
     - [ ] Red-Black tree
 - Types 
     - [ ] Util

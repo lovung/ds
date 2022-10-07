@@ -15,6 +15,8 @@ func TestMaxHeaps(t *testing.T) {
 	heap.Push(&h, 3)
 	heap.Push(&h, 4)
 	assert.Equal(t, 4, h.Len())
+	assert.Equal(t, -1, h.Index(5))
+	assert.Equal(t, 0, h.Index(4))
 	assert.Equal(t, 4, heap.Pop(&h))
 	assert.Equal(t, 3, heap.Pop(&h))
 	assert.Equal(t, 2, heap.Pop(&h))
