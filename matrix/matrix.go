@@ -62,6 +62,7 @@ func (mat *Matrix[T]) InBound(i, j int) bool {
 	}
 	return true
 }
+
 func (mat *Matrix[T]) UpdateAt(i, j int, val T) {
 	if !mat.InBound(i, j) {
 		return
@@ -69,10 +70,14 @@ func (mat *Matrix[T]) UpdateAt(i, j int, val T) {
 	mat.data[i][j] = val
 }
 
-func (mat *Matrix[T]) ForEach(f func(i, j int)) {
+func (mat *Matrix[T]) ForEach(f func(val T, i, j int)) {
 	for i := range mat.data {
 		for j := range mat.data[i] {
-			f(i, j)
+			f(mat.data[i][j], i, j)
 		}
 	}
+}
+
+func (mat *Matrix[T]) Data() [][]T {
+	return mat.data
 }
