@@ -37,5 +37,11 @@ func Test_Matrix(t *testing.T) {
 		})
 		assert.Equal(t, 7, sum)
 		assert.Equal(t, -1, mat.Data()[0][2])
+		mat.DoWithNearBy(0, 0, func(_ int, i, j int) { mat.UpdateAt(i, j, 0) })
+		sum = 0
+		mat.ForEach(func(val int, _, _ int) {
+			sum += val
+		})
+		assert.Equal(t, 5, sum)
 	})
 }

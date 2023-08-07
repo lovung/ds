@@ -5,6 +5,10 @@ type Matrix[T any] struct {
 	defaultVal T
 }
 
+var dir = [][]int{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
+
+type CellFn[T any] func(val T, i, j int)
+
 // New m row, n col matrix
 func New[T any](m, n int, defaultVal ...T) *Matrix[T] {
 	data := make([][]T, m)
@@ -70,10 +74,19 @@ func (mat *Matrix[T]) UpdateAt(i, j int, val T) {
 	mat.data[i][j] = val
 }
 
-func (mat *Matrix[T]) ForEach(f func(val T, i, j int)) {
+func (mat *Matrix[T]) ForEach(f CellFn[T]) {
 	for i := range mat.data {
 		for j := range mat.data[i] {
-			f(mat.data[i][j], i, j)
+			f(mat.At(i, j), i, j)
+		}
+	}
+}
+
+func (mat *Matrix[T]) DoWithNearBy(i, j int, f CellFn[T]) {
+	for _, d := range dir {
+		x, y := i+d[0], j+d[1]
+		if mat.InBound(x, y) {
+			f(mat.At(x, y), x, y)
 		}
 	}
 }
