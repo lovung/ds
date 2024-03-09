@@ -27,9 +27,7 @@ func (q *SimpleQueue[T]) DeQueue() (v T, ok bool) {
 		return v, false
 	}
 	x := (*q)[0]
-	old := *q
 	*q = (*q)[1:]
-	clear(old)
 	return x, true
 }
 
