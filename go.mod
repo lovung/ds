@@ -1,6 +1,6 @@
 module github.com/lovung/ds
 
-go 1.19
+go 1.22
 
 require (
 	github.com/stretchr/testify v1.8.0
