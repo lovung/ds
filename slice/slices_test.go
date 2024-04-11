@@ -1,4 +1,4 @@
-package slices
+package slice
 
 import (
 	"reflect"

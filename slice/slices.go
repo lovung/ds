@@ -1,4 +1,4 @@
-package slices
+package slice
 
 import "golang.org/x/exp/constraints"
 
@@ -8,13 +8,13 @@ func Reverse[T any](s []T) {
 	}
 }
 
-func MaxValueAndIndex[T constraints.Ordered](s []T) (T, int) {
+// MaxValueAndIndex return max value and the index of first max
+func MaxValueAndIndex[T constraints.Ordered](s []T) (max T, idx int) {
 	if len(s) == 0 {
-		var empty T
-		return empty, -1
+		return max, -1
 	}
-	max := s[0]
-	idx := 0
+	max = s[0]
+	idx = 0
 	for i, v := range s {
 		if v > max {
 			max = v
