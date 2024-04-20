@@ -70,18 +70,18 @@ func NewSquare[T any](n int, defaultVal ...T) *Matrix[T] {
 }
 
 func (mat *Matrix[T]) At(i, j int) T {
-	if !mat.InBound(i, j) {
+	if !mat.Bound(i, j) {
 		return mat.defaultVal
 	}
 	return mat.data[i][j]
 }
 
-func (mat *Matrix[T]) InBound(i, j int) bool {
+func (mat *Matrix[T]) Bound(i, j int) bool {
 	return In(mat.data, i, j)
 }
 
 func (mat *Matrix[T]) UpdateAt(i, j int, val T) {
-	if mat.InBound(i, j) {
+	if mat.Bound(i, j) {
 		mat.data[i][j] = val
 	}
 }
@@ -103,10 +103,8 @@ func (mat *Matrix[T]) Data() [][]T {
 }
 
 func In[T any](mat [][]T, i, j int) bool {
-	if i < 0 || j < 0 || i >= len(mat) || j >= len(mat[0]) {
-		return false
-	}
-	return true
+	return i >= 0 && i < len(mat) &&
+		j >= 0 && (len(mat) == 0 || j < len(mat[0]))
 }
 
 func ForEachNearBy[T any](mat [][]T, i, j int, f CellFn[T]) {
