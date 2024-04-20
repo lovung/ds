@@ -2,7 +2,7 @@ package maths
 
 import "golang.org/x/exp/constraints"
 
-func abs[T constraints.Float | constraints.Signed](x T) T {
+func ABS[T constraints.Float | constraints.Integer](x T) T {
 	if x < 0 {
 		return -x
 	}
